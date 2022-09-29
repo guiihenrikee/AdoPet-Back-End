@@ -1,23 +1,28 @@
 import mongoose from "mongoose";
+import bcrypt from "bcrypt";
 
 const Schema = mongoose.Schema;
 
 export const UserSchema = new Schema({
+  //User schema for the DB.
   name: {
     type: String,
-    required: "Digite o nome completo"
+    required: true,
   },
   email: {
     type: String,
-    required: "Digite a senha"
+    required: true,
+    trim: true,
+    lowercase: true,
   },
-  password: {
+  hashPassword: {
     type: String,
-    required: "Digite a senha"
+    required: true,
+    minlength: 8,
+    trim: true,
   },
-  newsletter: {
-    type: Boolean,
-    default: true
-  }
-})
+});
 
+UserSchema.methods.comparePassword = (password, hashPassword) => {
+  return bcrypt.compareSync(password, hashPassword);
+};
