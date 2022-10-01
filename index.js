@@ -11,15 +11,15 @@ dotenv.config();
 const app = express();
 const PORT = 4000;
 
+// cors setup to allow the connection by the front-end
+app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
+
 //mongoose connection coming from db.js
 connection();
 
 // body-parser setup
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
-// cors setup to allow the connection by the front-end
-app.use(cors());
 
 //JWT authorization setup
 app.use((req, res, next) => {
@@ -30,7 +30,7 @@ app.use((req, res, next) => {
   ) {
     jsonwebtoken.verify(
       req.headers.authorization.split(" ")[1],
-      "ADOPET",
+      process.env.SECRET,
       (err, decode) => {
         if (err) req.user = undefined;
         req.user = decode;

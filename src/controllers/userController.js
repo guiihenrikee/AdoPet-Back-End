@@ -82,12 +82,10 @@ export const register = (req, res) => {
   userRegister.hashPassword = bcrypt.hashSync(req.body.password, 10);
   userRegister.save((err, user) => {
     if (err) {
-      return res.status(400).send({
-        message: err,
-      });
+      return res.json({ message: "Email já cadastrado no sistema!" });
     } else {
       user.hashPassword = undefined;
-      return res.json(user);
+      return res.json({ message: "Cadastro efetuado com sucesso!" });
     }
   });
 };
@@ -109,7 +107,8 @@ export const login = (req, res) => {
           return res.json({
             token: jwt.sign(
               { name: user.name, email: user.email, _id: user.id },
-              "ADOPET"
+              process.env.SECRET,
+              { expiresIn: "5h" }
             ),
           });
         }
