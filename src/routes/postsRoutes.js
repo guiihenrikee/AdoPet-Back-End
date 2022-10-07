@@ -1,4 +1,3 @@
-import upload from "../middleware/upload";
 import {
   addNewPost,
   getPosts,
@@ -6,6 +5,7 @@ import {
   updatePost,
   deletePost,
 } from "../controllers/postController";
+import upload from "../utils/multer";
 
 const postRoutes = (app) => {
   app
@@ -18,14 +18,14 @@ const postRoutes = (app) => {
       next();
     }, getPosts)
     // post endpoint - add a new post
-    .post(upload.array("photos", 5), addNewPost);
+    .post(upload.single("photo"), addNewPost);
 
   app
     .route("/posts/:postID")
     // get a specific post
     .get(getPostWithID)
     // updating a specific post
-    .put(upload.array("photos", 5), updatePost)
+    .put(upload.single("photo"), updatePost)
     // delete a specific post
     .delete(deletePost);
 };

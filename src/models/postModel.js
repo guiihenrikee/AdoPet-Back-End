@@ -7,26 +7,29 @@ export const PostSchema = new Schema({
     type: String,
     required: "Digite o nome do pet",
   },
-  photos: {
-    //https://stackoverflow.com/questions/4796914/store-images-in-a-mongodb-database
+  photo: {
+    type: String,
+    required: "Anexe uma foto!",
+  },
+  cloudinary_id: {
     type: String,
   },
   description: {
     type: String,
     required: "Digite sobre o pet",
   },
-  contactInfo: {
-    name: {
-      type: String,
-      required: "Digite o seu nome",
-    },
-    phone: {
-      type: String,
-      required: "Digite o seu telefone",
-    },
-    email: {
-      type: String,
-      required: "Digite o seu email",
-    },
-  },
+  // contactInfo: {
+  //   name: {
+  //     type: String,
+  //     required: "Digite o seu nome",
+  //   },
+  //   phone: {
+  //     type: String,
+  //     required: "Digite o seu telefone",
+  //   },
+  //   email: {
+  //     type: String,
+  //     required: "Digite o seu email",
+  //   },
+  // },
 });
