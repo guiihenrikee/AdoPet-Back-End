@@ -108,7 +108,7 @@ export const login = (req, res) => {
             token: jwt.sign(
               { name: user.name, email: user.email, _id: user.id },
               process.env.SECRET,
-              { expiresIn: "900s" }
+              { expiresIn: "10s" }
             ),
           });
         }

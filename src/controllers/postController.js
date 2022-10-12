@@ -45,20 +45,6 @@ export const getPostWithID = (req, res) => {
   });
 };
 
-// export const updatePost = (req, res) => {
-//   Post.findOneAndUpdate(
-//     { _id: req.params.postID },
-//     req.body,
-//     { new: true, useFindAndModify: false },
-//     (err, post) => {
-//       if (err) {
-//         res.send(err);
-//       }
-//       res.json(post);
-//     }
-//   );
-// };
-
 export const updatePost = async (req, res) => {
   cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
