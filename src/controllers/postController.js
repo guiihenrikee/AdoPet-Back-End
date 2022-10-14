@@ -14,6 +14,7 @@ export const addNewPost = async (req, res) => {
     if (!req.file) return res.send("Please upload a file");
     const result = await cloudinary.v2.uploader.upload(req.file.path);
     const newPost = new Post({
+      userID: req.body.userID,
       petName: req.body.petName,
       description: req.body.description,
       photo: result.secure_url,
@@ -21,7 +22,7 @@ export const addNewPost = async (req, res) => {
     });
 
     await newPost.save();
-    res.json(newPost);
+    res.json({ message: "Postagem criada com sucesso!" });
   } catch (error) {
     console.log(error);
   }
@@ -61,6 +62,7 @@ export const updatePost = async (req, res) => {
       result = await cloudinary.v2.uploader.upload(req.file.path);
     }
     const data = {
+      userID: req.body.userID || post.userID,
       petName: req.body.petName || post.petName,
       description: req.body.description || post.description,
       photo: result.secure_url || post.photo,
