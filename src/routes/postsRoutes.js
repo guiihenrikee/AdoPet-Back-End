@@ -2,6 +2,7 @@ import {
   addNewPost,
   getPosts,
   getPostWithID,
+  getPostWithUserID,
   updatePost,
   deletePost,
 } from "../controllers/postController";

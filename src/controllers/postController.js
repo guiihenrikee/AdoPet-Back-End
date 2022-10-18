@@ -11,7 +11,8 @@ export const addNewPost = async (req, res) => {
   });
 
   try {
-    if (!req.file) return res.send("Please upload a file");
+    if (!req.file)
+      return res.json({ message: "Insira uma foto do pet para continuar!" });
     const result = await cloudinary.v2.uploader.upload(req.file.path);
     const newPost = new Post({
       userID: req.body.userID,
@@ -76,6 +77,11 @@ export const updatePost = async (req, res) => {
 };
 
 export const deletePost = async (req, res) => {
+  cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+  });
   try {
     // Find user by id
     let post = await Post.findById(req.params.postID);
@@ -83,7 +89,7 @@ export const deletePost = async (req, res) => {
     await cloudinary.v2.uploader.destroy(post.cloudinary_id);
     // Delete user from db
     await post.remove();
-    res.json({ message: "Post successfully deleted" });
+    res.json({ message: "Postagem deletada com sucesso!" });
   } catch (err) {
     console.log(err);
     res.send(err);
