@@ -7,6 +7,7 @@ import {
   deletePost,
 } from "../controllers/postController";
 import upload from "../utils/multer";
+import { sendEmail } from "../middleware/smtp";
 
 const postRoutes = (app) => {
   app
@@ -29,6 +30,9 @@ const postRoutes = (app) => {
     .put(upload.single("photo"), updatePost)
     // delete a specific post
     .delete(deletePost);
+
+  //send application email.
+  // app.route("/smtp").post(sendEmail);
 };
 
 export default postRoutes;
