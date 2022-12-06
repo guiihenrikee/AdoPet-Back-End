@@ -3,6 +3,7 @@ import express from "express";
 import bodyParser from "body-parser";
 import jsonwebtoken from "jsonwebtoken";
 import cors from "cors";
+import nodemailer from "nodemailer";
 import usersRoutes from "./src/routes/usersRoutes";
 import postsRoutes from "./src/routes/postsRoutes";
 import connection from "./db";

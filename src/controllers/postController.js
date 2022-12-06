@@ -54,6 +54,7 @@ export const updatePost = async (req, res) => {
     api_secret: process.env.CLOUDINARY_API_SECRET,
   });
   try {
+    console.log(req.params.postID);
     let post = await Post.findById(req.params.postID);
     // Delete image from cloudinary
     await cloudinary.v2.uploader.destroy(post.cloudinary_id);
@@ -63,14 +64,13 @@ export const updatePost = async (req, res) => {
       result = await cloudinary.v2.uploader.upload(req.file.path);
     }
     const data = {
-      userID: req.body.userID || post.userID,
       petName: req.body.petName || post.petName,
       description: req.body.description || post.description,
       photo: result.secure_url || post.photo,
       cloudinary_id: result.public_id || post.cloudinary_id,
     };
     post = await Post.findByIdAndUpdate(req.params.postID, data, { new: true });
-    res.json(post);
+    res.json({ message: "Postagem editada com sucesso!" });
   } catch (err) {
     console.log(err);
   }

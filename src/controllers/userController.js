@@ -52,7 +52,7 @@ export const updateUser = (req, res) => {
       if (err) {
         res.send(err);
       }
-      res.json(user);
+      res.json({ message: "Dados alterados com sucesso!" });
     }
   );
 };
@@ -61,7 +61,7 @@ export const updateUser = (req, res) => {
 export const deleteUser = (req, res) => {
   User.deleteOne({ _id: req.params.userID }, (err, user) => {
     if (err) {
-      res.send("Usuário não encontrado!");
+      res.json({ message: "Usuário não encontrado!" });
     }
     res.json({ message: "Usuário deletado com sucesso!" });
   });
